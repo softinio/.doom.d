@@ -53,10 +53,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq doom-font (font-spec :family "SF Mono" :size 24 :weight 'normal))
+(setq doom-font (font-spec :family "SF Mono" :size 20 :weight 'normal))
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired t
-        insert-directory-program "/usr/local/bin/gls"
+        insert-directory-program "/opt/local/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
 (setq
  projectile-project-search-path '("~/Project/", "~/OpenSource/")

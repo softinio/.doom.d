@@ -60,9 +60,14 @@
         dired-listing-switches "-aBhl --group-directories-first"))
 (setq
  projectile-project-search-path '("~/Project/", "~/OpenSource/")
+ vterm-shell '/bin/bash
+ vterm-kill-buffer-on-exit t
+ auth-sources '("~/.authinfo")
  )
 ;; Start maximised (cross-platf)
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 (setq doom-themes-treemacs-theme "doom-colors")
 (setq org-ellipsis "⤵")
 (setq org-bullets-bullet-list (quote ("◉" "◆" "✚" "☀" "○")))
+(use-package forge
+  :after magit)

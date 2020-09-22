@@ -29,7 +29,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -62,12 +62,13 @@
  projectile-project-search-path '("~/Project/", "~/OpenSource/")
  vterm-shell '/bin/bash
  vterm-kill-buffer-on-exit t
- auth-sources '("~/.authinfo")
+ auth-sources '("~/.authinfo.gpg")
  )
 ;; Start maximised (cross-platf)
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 (setq doom-themes-treemacs-theme "doom-colors")
 (setq org-ellipsis "⤵")
-(setq org-bullets-bullet-list (quote ("◉" "◆" "✚" "☀" "○")))
 (use-package forge
   :after magit)
+(use-package org-bullets
+    :hook (org-mode . org-bullets-mode))

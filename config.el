@@ -30,6 +30,23 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/org/")
+(setq org-agenda-files (list "inbox.org" "agenda.org"
+                             "notes.org" "projects.org"))
+;; Capture
+(setq org-capture-templates
+      `(("i" "Inbox" entry  (file "inbox.org")
+        ,(concat "* TODO %?\n"
+                 "/Entered on/ %U"))
+        ("m" "Meeting" entry  (file+headline "agenda.org" "Future")
+        ,(concat "* %? :meeting:\n"
+                 "<%<%Y-%m-%d %a %H:00>>"))
+        ("n" "Note" entry  (file "notes.org")
+        ,(concat "* Note (%a)\n"
+                 "/Entered on/ %U\n" "\n" "%?"))))
+(setq org-ellipsis "⤵")
+(use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -60,15 +77,10 @@
         dired-listing-switches "-aBhl --group-directories-first"))
 (setq
  projectile-project-search-path '("~/Project/", "~/OpenSource/")
- vterm-shell '/bin/bash
- vterm-kill-buffer-on-exit t
  auth-sources '("~/.authinfo.gpg")
  )
 ;; Start maximised (cross-platf)
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 (setq doom-themes-treemacs-theme "doom-colors")
-(setq org-ellipsis "⤵")
 (use-package forge
   :after magit)
-(use-package org-bullets
-    :hook (org-mode . org-bullets-mode))

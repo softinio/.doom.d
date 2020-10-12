@@ -51,3 +51,4 @@
 (package! exec-path-from-shell)
 (package! forge)
 (package! org-bullets)
+(package! org-fancy-priorities)

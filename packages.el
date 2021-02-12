@@ -52,3 +52,4 @@
 (package! forge)
 (package! org-bullets)
 (package! elpher)
+(package! lsp-python-ms)

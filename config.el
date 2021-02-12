@@ -42,7 +42,22 @@
                              (66 :foreground "#da8548")
                              (67 :foreground "#0098dd"))
         )
+  (setq org-agenda-files (list "inbox.org" "agenda.org"
+                             "notes.org" "projects.org"))
 
+  (setq org-capture-templates
+      `(("i" "Inbox" entry  (file "inbox.org")
+        ,(concat "* TODO %?\n"
+                 "/Entered on/ %U"))
+        ("m" "Meeting" entry  (file+headline "agenda.org" "Future")
+        ,(concat "* %? :meeting:\n"
+                 "<%<%Y-%m-%d %a %H:00>>"))
+        ("n" "Note" entry  (file "notes.org")
+        ,(concat "* Note (%a)\n"
+                 "/Entered on/ %U\n" "\n" "%?"))))
+        ;; ("@" "Inbox [mu4e]" entry (file "inbox.org")
+        ;; ,(concat "* TODO Reply to \"%a\" %?\n"
+        ;;          "/Entered on/ %U"))))
   )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -79,12 +94,37 @@
 ;; Start maximised (cross-platf)
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 (setq doom-themes-treemacs-theme "doom-colors")
-(use-package forge
-  :after magit)
+(use-package forge :after magit)
 
 (setq lsp-log-io t)
 (after! elpher
   (setq gnutls-verify-error nil))
 (setq deft-directory "~/org"
       deft-extensions '("org", "md")
-      deft-recursive t)
+      deft-default-extension "org"
+      deft-recursive t
+      deft-use-filename-as-title t
+      deft-use-filter-string-for-filename t
+      deft-text-mode 'org-mode
+      deft-file-naming-rules  '((noslash . "-")
+                                (nospace . "-")
+                                (case-fn . downcase))
+      )
+
+;; Spring boot support
+(require 'lsp-java-boot)
+
+;; to enable the lenses
+(add-hook 'lsp-mode-hook #'lsp-lens-mode)
+(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+
+;; python
+(use-package lsp-python-ms
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))))
+
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\|c\\)$")
